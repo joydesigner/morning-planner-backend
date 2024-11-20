@@ -6,6 +6,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 // Define the schema for the User collection
@@ -16,7 +17,7 @@ const UserSchema: Schema<IUser> = new Schema(
       password: { type: String, required: true },
     },
     {
-      timestamps: true, // Automatically adds `createdAt` and `updatedAt` fields
+      timestamps: true // Automatically adds `createdAt` and `updatedAt` fields
     }
 );
 // Create and export the User model

@@ -9,6 +9,7 @@ const UserType = new GraphQLObjectType({
         id: { type: GraphQLString },
         profileName: { type: GraphQLString },
         email: { type: GraphQLString },
+        password: { type: GraphQLString },
         createdAt: { type: GraphQLString },
         updatedAt: { type: GraphQLString },
     },
@@ -53,14 +54,9 @@ const RootMutation = new GraphQLObjectType({
                 });
 
                 await newUser.save();
+                console.log("new user created:", newUser);
 
-                return {
-                    id: newUser._id.toString(),
-                    profileName: newUser.profileName,
-                    email: newUser.email,
-                    createdAt: newUser.createdAt.toISOString(),
-                    updatedAt: newUser.updatedAt.toISOString(),
-                };
+                return newUser;
             },
         },
     },
@@ -80,13 +76,7 @@ const RootQuery = new GraphQLObjectType({
                 if (!user) {
                     throw new Error("User not found.");
                 }
-                return {
-                    id: user._id.toString(),
-                    profileName: user.profileName,
-                    email: user.email,
-                    createdAt: user.createdAt.toISOString(),
-                    updatedAt: user.updatedAt.toISOString(),
-                };
+                return user;
             },
         },
     },
